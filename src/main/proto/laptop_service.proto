@@ -14,6 +14,18 @@ message StoreLaptopResponse {
   string id = 1;
 }
 
+message Empty { }
+
 service LaptopService {
-  rpc StoreLaptop(StoreLaptopRequest) returns (StoreLaptopResponse) { };
+  // Unary RPC
+  rpc StoreLaptop(StoreLaptopRequest) returns (StoreLaptopResponse);
+
+  // Server streaming RPC
+  rpc GetAllLaptops(Empty) returns (stream StoreLaptopResponse);
+
+  // Client streaming RPC
+  rpc StoreLaptops(stream StoreLaptopRequest) returns (StoreLaptopResponse);
+
+  // Bidirectional streaming RPC
+  rpc StoreLaptopsContinuously(stream StoreLaptopRequest) returns (stream StoreLaptopResponse);
 }
